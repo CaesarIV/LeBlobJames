@@ -11,7 +11,7 @@ from datetime import datetime
 class optmizer():
 
     def __init__(self,):
-        self.genrations = 1
+        self.genrations = 20
         self.population_size = 300
         self.CXPB = 0.4 
         self.MUTPB = 0.2
@@ -39,11 +39,12 @@ class optmizer():
                         self.chem["old"][row][col][i]=0
 
             #seeds
-            seedsNum = 10
-            for i in range(1,seedsNum):
-                j = random.randint(0,self.size[0]-1)
-                k = random.randint(0,self.size[1]-1)
-                self.cells[j][k]=1
+            self.cells[10][10]=1
+            #seedsNum = 10
+            #for i in range(1,seedsNum):
+            #    j = random.randint(0,self.size[0]-1)
+            #    k = random.randint(0,self.size[1]-1)
+            #    self.cells[j][k]=1
             pass
 
     class logistic_function():
@@ -78,7 +79,7 @@ class optmizer():
     def evaluation(self, individual):
         Grow = self.logistic_function(individual[0:8])
         Die = self.logistic_function(individual[8:16])
-        
+        se=[]
         Grid = self.Grid()
         if self.save == True:
             Steps = {}
@@ -88,8 +89,9 @@ class optmizer():
                 for col in Grid.cells[row]:
                     cells[row].append(Grid.cells[row][col])
             Steps[0]=cells
-            
-        for step in range(1,5):
+
+        max_steps = 10  
+        for step in range(1,max_steps):
             if self.save == True:
                 cells=[]
             for row in range(0, Grid.size[0]):
@@ -128,17 +130,20 @@ class optmizer():
             Grid.chem["old"] = Grid.chem["new"]
             if self.save:
                 Steps[step] = cells
-                with open('Steps.js', 'w') as fp:
-                    json.dump(Steps, fp)
+                
+            if step > max_steps-5:
+                for row in range(0,Grid.size[0]):
+                    for col in range(0,Grid.size[1]):
+                        se.append((self.target[row,col]-Grid.cells[row][col])**2)
+        if self.save:
+            with open('Steps.js', 'w') as fp:
+                json.dump(Steps, fp)
 
-                with open("Steps.js", "r+") as f:
-                     old = f.read() # read everything in the file
-                     f.seek(0) # rewind
-                     f.write("Steps=" + old) # write the new line before
-        se = []
-        for row in range(0,Grid.size[0]):
-            for col in range(0,Grid.size[1]):
-                se.append((self.target[row,col]-Grid.cells[row][col])**2)
+            with open("Steps.js", "r+") as f:
+                 old = f.read() # read everything in the file
+                 f.seek(0) # rewind
+                 f.write("Steps=" + old) # write the new line before
+
         score = sum(se)
         return (score),
 
