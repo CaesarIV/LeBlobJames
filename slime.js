@@ -24,9 +24,29 @@ $(document).ready(function(){
     //Color Setups
     zeroValue = "rgb(9,6,0)";
     oneValue = "rgb(255,264,62)";
+    targetValue = "rgb(255,85,62)";
+
+    //Initialize Target
+    for (var x = 0, i = 0; i < w; x+=side, i++) {
+        for (var y = 0, j=0; j < h; y+=side, j++) {   
+            if(target[i][j] == 0){
+                ctx.fillStyle = zeroValue;
+                ctx.beginPath();    
+                ctx.rect (x, y, side-gap, side-gap);
+                ctx.fill();
+                ctx.closePath();
+            }else if(target[i][j] == 1){
+                ctx.fillStyle = targetValue;
+                ctx.beginPath();  
+                ctx.rect (x, y, side-gap, side-gap);
+                ctx.fill();
+                ctx.closePath();
+            }                                        
+        }
+    }   
 
     //Main Loop Configuration
-    delayMS = 200;
+    delayMS = 1000;
     currentFrame = rawData[0];
     (function mainLoop(frame) {
         setTimeout(function() {
@@ -38,13 +58,20 @@ $(document).ready(function(){
             for (var x = 0, i = 0; i < w; x+=side, i++) {
                 for (var y = 0, j=0; j < h; y+=side, j++) {   
                     // console.log(i,j,i%2,j%2);
-                    if(currentFrame[i][j] == 0){
+                    if(currentFrame[i][j] == 0 && target[i][j] == 0){
                         ctx.fillStyle = zeroValue;
                         ctx.beginPath();    
                         ctx.rect (x, y, side-gap, side-gap);
                         ctx.fill();
                         ctx.closePath();
-                    }else if(currentFrame[i][j] == 1){
+                    }else if(target[i][j] == 1 && currentFrame[i][j] == 0){
+                        ctx.fillStyle = targetValue;
+                        ctx.beginPath();  
+                        ctx.rect (x, y, side-gap, side-gap);
+                        ctx.fill();
+                        ctx.closePath();
+                    }                    
+                    else if(currentFrame[i][j] == 1){
                         ctx.fillStyle = oneValue;
                         ctx.beginPath();  
                         ctx.rect (x, y, side-gap, side-gap);

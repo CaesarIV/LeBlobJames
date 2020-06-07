@@ -39,9 +39,9 @@ class optmizer():
                         self.chem["old"][row][col][i]=0
 
             #seed        
-            self.cells[11][11]=1
-            self.cells[11][9]=1
-            self.cells[11][13]=1
+            # self.cells[10][8]=1
+            self.cells[10][10]=1
+            # self.cells[10][12]=1
             pass
 
     class logistic_function():
