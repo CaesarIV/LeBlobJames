@@ -47,6 +47,8 @@ $(document).ready(function(){
 
     //Main Loop Configuration
     delayMS = 1000;
+    initalDelay = delayMS;
+    delayBeforeLoop = 5000;
     currentFrame = rawData[0];
     (function mainLoop(frame) {
         setTimeout(function() {
@@ -81,13 +83,15 @@ $(document).ready(function(){
                 }
             }      
             console.log("STEP #"+frame);    
-            stepNumber.innerHTML = frame; 
+            stepNumber.innerHTML = frame+1; 
           if (frame < numberOfIterations){ 
+            delayMS = initalDelay;
             frame++;
             currentFrame = rawData[frame];  
             mainLoop(frame)            
           }else{
               console.log("Looping")
+              delayMS = delayBeforeLoop;
               frame = 0;
               currentFrame = rawData[0];
               mainLoop(frame) 
