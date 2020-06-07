@@ -16,7 +16,7 @@ class optmizer():
         self.CXPB = 0.4 
         self.MUTPB = 0.2
         self.g = 0
-        random.seed(16)
+        random.seed(64)
         pass
 
     class Grid():
@@ -40,7 +40,6 @@ class optmizer():
 
             #seeds
             seedsNum = 10
-            self.cells[10][10]=1
             for i in range(1,seedsNum):
                 j = random.randint(0,self.size[0]-1)
                 k = random.randint(0,self.size[1]-1)
@@ -90,7 +89,7 @@ class optmizer():
                     cells[row].append(Grid.cells[row][col])
             Steps[0]=cells
             
-        for step in range(1,6):
+        for step in range(1,5):
             if self.save == True:
                 cells=[]
             for row in range(0, Grid.size[0]):
@@ -98,7 +97,7 @@ class optmizer():
                     cells.append([])
                 for col in range(0, Grid.size[1]):
                     #updating chemical grid via diffusion and production
-                    if Grid.cells[row][col] == 1 and self.target[row,col] == 1:
+                    if Grid.cells[row][col] == 1:
                         chemProd = True
                     else:
                         chemProd = False
@@ -113,7 +112,10 @@ class optmizer():
                                     Grid.chem["new"][row][col][i] += (1.0/16.0)*Grid.chem["old"][row+j][col+k][i]
                         #chemicals production
                         if chemProd:
-                            Grid.chem["new"][row][col][i]+= individual[16+i]
+                            if self.target[row,col] == 1:
+                                Grid.chem["new"][row][col][i]+= individual[16+i]
+                            else:
+                                Grid.chem["new"][row][col][i]+= individual[19+i]
 
                         x.append(Grid.chem["new"][row][col][i])
                     #GrowthAndDeath
@@ -137,7 +139,6 @@ class optmizer():
         for row in range(0,Grid.size[0]):
             for col in range(0,Grid.size[1]):
                 se.append((self.target[row,col]-Grid.cells[row][col])**2)
-
         score = sum(se)
         return (score),
 
@@ -166,7 +167,7 @@ class optmizer():
         creator.create("Individual", list, fitness=creator.FitnessMax)
         toolbox = base.Toolbox()
         toolbox.register("attr_var", random.uniform, 0, 1)
-        toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_var, 19)
+        toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_var, 22)
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
         toolbox.register("evaluate", self.evaluation)
         toolbox.register("mate", tools.cxUniform, indpb=0.5)
