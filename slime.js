@@ -27,8 +27,8 @@ $(document).ready(function(){
     targetValue = "rgb(255,85,62)";
 
     //Initialize Target
-    for (var x = 0, i = 0; i < w; x+=side, i++) {
-        for (var y = 0, j=0; j < h; y+=side, j++) {   
+    for (var x = 0, j = 0; j < w; x+=side, j++) {
+        for (var y = 0, i=0; i < h; y+=side, i++) {   
             if(target[i][j] == 0){
                 ctx.fillStyle = zeroValue;
                 ctx.beginPath();    
@@ -57,8 +57,8 @@ $(document).ready(function(){
             // redValue-= 20;
             // greenValue+= 20;
 
-            for (var x = 0, i = 0; i < w; x+=side, i++) {
-                for (var y = 0, j=0; j < h; y+=side, j++) {   
+            for (var x = 0, j = 0; j < w; x+=side, j++) {
+                for (var y = 0, i=0; i < h; y+=side, i++) {   
                     // console.log(i,j,i%2,j%2);
                     if(currentFrame[i][j] == 0 && target[i][j] == 0){
                         ctx.fillStyle = zeroValue;
