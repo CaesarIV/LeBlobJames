@@ -40,6 +40,8 @@ class optmizer():
 
             #seed        
             self.cells[11][11]=1
+            self.cells[11][9]=1
+            self.cells[11][13]=1
             pass
 
     class logistic_function():
