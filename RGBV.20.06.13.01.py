@@ -14,8 +14,8 @@ class optmizer():
         random.seed(64)
         pass
 
-    def creation_function(self,):
-        return(random.randint(0,255))
+    def creation_function(self, n):
+        return(255*np.sin(n))
         pass
 
         
@@ -26,6 +26,7 @@ class optmizer():
         
         if save:
             Steps={}
+        n = 0
         for step in range(0, max_steps):
             image = []
             for row in range(0,Grid_size[0]):
@@ -33,7 +34,9 @@ class optmizer():
                 for col in range(0, Grid_size[1]):
                     image[row].append([])
                     for RGB in range(0, 3):
-                        image[row][col].append(self.creation_function())
+                        image[row][col].append(self.creation_function(n))
+                        n += 1
+            
             Steps[step] = image
             
         if save:
