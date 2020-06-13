@@ -35,7 +35,7 @@ $(document).ready(function(){
     for (var x = 0, j = 0; j < wArt; x+=sideArt, j++) {
         for (var y = 0, i=0; i < hArt; y+=sideArt, i++) {   
             //if(i < target[0].length && j < target[0][0]){
-                if(i >= 24 || j >= 24){
+                if(i >= 220 || j >= 220){
                     ctxArt.fillStyle = zeroValue;
                     ctxArt.beginPath();    
                     ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
@@ -82,7 +82,7 @@ $(document).ready(function(){
             for (var x = 0, j = 0; j < wArt; x+=sideArt, j++) {
                 for (var y = 0, i=0; i < hArt; y+=sideArt, i++) {   
 
-                    if(i >= 24 | j >= 24){
+                    if(i >= 220 | j >= 220){
                         ctxArt.fillStyle = zeroValue;
                         ctxArt.beginPath();    
                         ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
