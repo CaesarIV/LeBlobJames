@@ -32,40 +32,40 @@ $(document).ready(function(){
     targetValue = "rgb(255,85,62)";
 
     //Initialize Target
-    for (var x = 0, j = 0; j < wArt; x+=sideArt, j++) {
-        for (var y = 0, i=0; i < hArt; y+=sideArt, i++) {   
-            //if(i < target[0].length && j < target[0][0]){
-                if(i >= 220 || j >= 220){
-                    ctxArt.fillStyle = zeroValue;
-                    ctxArt.beginPath();    
-                    ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
-                    ctxArt.fill();
-                    ctxArt.closePath();
-                    continue;
-                }
+    // for (var x = 0, j = 0; j < wArt; x+=sideArt, j++) {
+    //     for (var y = 0, i=0; i < hArt; y+=sideArt, i++) {   
+    //         //if(i < target[0].length && j < target[0][0]){
+    //             if(i >= 220 || j >= 220){
+    //                 ctxArt.fillStyle = zeroValue;
+    //                 ctxArt.beginPath();    
+    //                 ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
+    //                 ctxArt.fill();
+    //                 ctxArt.closePath();
+    //                 continue;
+    //             }
 
-                if(target[i][j] == 0){
-                    ctxArt.fillStyle = zeroValue;
-                    ctxArt.beginPath();    
-                    ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
-                    ctxArt.fill();
-                    ctxArt.closePath();
-                }else if(target[i][j] == 1){
-                    ctxArt.fillStyle = targetValue;
-                    ctxArt.beginPath();  
-                    ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
-                    ctxArt.fill();
-                    ctxArt.closePath();
-                }     
-            // }else{
-            //     ctxArt.fillStyle = zeroValue;
-            //     ctxArt.beginPath();    
-            //     ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
-            //     ctxArt.fill();
-            //     ctxArt.closePath();
-            // }                                   
-        }
-    }   
+    //             if(target[i][j] == 0){
+    //                 ctxArt.fillStyle = zeroValue;
+    //                 ctxArt.beginPath();    
+    //                 ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
+    //                 ctxArt.fill();
+    //                 ctxArt.closePath();
+    //             }else if(target[i][j] == 1){
+    //                 ctxArt.fillStyle = targetValue;
+    //                 ctxArt.beginPath();  
+    //                 ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
+    //                 ctxArt.fill();
+    //                 ctxArt.closePath();
+    //             }     
+    //         // }else{
+    //         //     ctxArt.fillStyle = zeroValue;
+    //         //     ctxArt.beginPath();    
+    //         //     ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
+    //         //     ctxArt.fill();
+    //         //     ctxArt.closePath();
+    //         // }                                   
+    //     }
+    // }   
 
     //Main Loop Configuration
     delayMS = 1000;
@@ -94,7 +94,7 @@ $(document).ready(function(){
                     //if(i < target[0].length && j < target[0][0]){
                         
                             ctxArt.fillStyle = "rgb("+currentFrameArt[i][j][0]+","+currentFrameArt[i][j][1]+","+currentFrameArt[i][j][2]+")";
-                            //console.log("rgb("+currentFrameArt[i][j]+","+currentFrameArt[i][j]+","+currentFrameArt[i][j]+")");
+                            // console.log("rgb("+currentFrameArt[i][j][0]+","+currentFrameArt[i][j][1]+","+currentFrameArt[i][j][2]+")");
                             ctxArt.beginPath();    
                             ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
                             ctxArt.fill();
