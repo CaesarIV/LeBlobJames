@@ -82,7 +82,7 @@ $(document).ready(function(){
                     }                                        
                 }
             }      
-            console.log("STEP #"+frame);    
+            // console.log("STEP #"+frame);    
             stepNumber.innerHTML = frame+1; 
           if (frame < numberOfIterations){ 
             delayMS = initalDelay;
