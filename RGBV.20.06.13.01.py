@@ -15,9 +15,9 @@ class optmizer():
         pass
 
     def creation_function(self, Xn):
-        r = 1.01
+        r = 4
         Xn1 = r*Xn*(1-Xn)
-        return(Xn1*255)
+        return(Xn1)
         pass
 
         
@@ -36,7 +36,9 @@ class optmizer():
                 for col in range(0, Grid_size[1]):
                     image[row].append([])
                     for RGB in range(0, 3):
-                        image[row][col].append(self.creation_function(Xn))
+                        Xn1 = self.creation_function(Xn)
+                        image[row][col].append(255*Xn1)
+                        Xn = Xn1
                         
             
             Steps[step] = image
