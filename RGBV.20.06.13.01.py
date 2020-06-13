@@ -20,7 +20,7 @@ class optmizer():
 
         
     def creat(self,):
-        Grid_size=(24,24)
+        Grid_size=(220,220)
         max_steps = 20
         save = True
         
@@ -34,7 +34,7 @@ class optmizer():
                 for col in range(0, Grid_size[1]):
                     image[row].append([])
                     for RGB in range(0, 3):
-                        n = n * 1.0009
+                        n = n * 1.00009
                         image[row][col].append(self.creation_function(n))
                         
             
