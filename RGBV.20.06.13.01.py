@@ -43,7 +43,7 @@ class optmizer():
             with open("rossSteps.js", "r+") as f:
                  old = f.read() # read everything in the file
                  f.seek(0) # rewind
-                 f.write("Steps=" + old) # write the new line before
+                 f.write("rossSteps=" + old) # write the new line before
                  
         pass
 
