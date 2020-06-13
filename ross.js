@@ -16,9 +16,9 @@ $(document).ready(function(){
     var ctxArt = document.getElementById('gridArt').getContext('2d');
     var stepNumberArt = document.getElementById('stepNumberArt');
     //Square Variables
-    wArt = 220;
-    hArt = 220;
-    sideArt = 1;
+    wArt = 24;
+    hArt = 24;
+    sideArt = 9;
     gapArt = 0;
 
     //Color Setups
@@ -29,7 +29,7 @@ $(document).ready(function(){
     //Initialize Target
     for (var x = 0, j = 0; j < wArt; x+=sideArt, j++) {
         for (var y = 0, i=0; i < hArt; y+=sideArt, i++) {   
-            if(i < target[0].length && j < target[0][0]){
+            //if(i < target[0].length && j < target[0][0]){
                 if(target[i][j] == 0){
                     ctxArt.fillStyle = zeroValue;
                     ctxArt.beginPath();    
@@ -43,13 +43,13 @@ $(document).ready(function(){
                     ctxArt.fill();
                     ctxArt.closePath();
                 }     
-            }else{
-                ctxArt.fillStyle = zeroValue;
-                ctxArt.beginPath();    
-                ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
-                ctxArt.fill();
-                ctxArt.closePath();
-            }                                   
+            // }else{
+            //     ctxArt.fillStyle = zeroValue;
+            //     ctxArt.beginPath();    
+            //     ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
+            //     ctxArt.fill();
+            //     ctxArt.closePath();
+            // }                                   
         }
     }   
 
@@ -68,7 +68,7 @@ $(document).ready(function(){
             for (var x = 0, j = 0; j < wArt; x+=sideArt, j++) {
                 for (var y = 0, i=0; i < hArt; y+=sideArt, i++) {   
                     // console.log(i,target[0].length);
-                    if(i < target[0].length && j < target[0][0]){
+                    //if(i < target[0].length && j < target[0][0]){
                         if(currentFrameArt[i][j] == 0 && target[i][j] == 0){
                             ctxArt.fillStyle = zeroValue;
                             ctxArt.beginPath();    
@@ -89,13 +89,14 @@ $(document).ready(function(){
                             ctxArt.fill();
                             ctxArt.closePath();
                         }  
-                    }else{
-                        ctxArt.fillStyle = zeroValue;
-                        ctxArt.beginPath();    
-                        ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
-                        ctxArt.fill();
-                        ctxArt.closePath();
-                    }                                      
+                    //}
+                    // else{
+                    //     ctxArt.fillStyle = zeroValue;
+                    //     ctxArt.beginPath();    
+                    //     ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
+                    //     ctxArt.fill();
+                    //     ctxArt.closePath();
+                    // }                                      
                 }
             }      
             // console.log("STEP #"+frame);    
