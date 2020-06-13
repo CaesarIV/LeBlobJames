@@ -26,7 +26,7 @@ class optmizer():
         
         if save:
             Steps={}
-        n = 0
+        n = 1
         for step in range(0, max_steps):
             image = []
             for row in range(0,Grid_size[0]):
@@ -34,8 +34,9 @@ class optmizer():
                 for col in range(0, Grid_size[1]):
                     image[row].append([])
                     for RGB in range(0, 3):
+                        n = n * 1.0009
                         image[row][col].append(self.creation_function(n))
-                        n += 1
+                        
             
             Steps[step] = image
             
