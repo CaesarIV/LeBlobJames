@@ -2,9 +2,9 @@ $(document).ready(function(){
 
     //Parsing
     var rawData = Steps;
-    stepKeys = Object.keys(Steps);
-    numberOfIterations = stepKeys.length-1;
-    console.log("Number of Iterations: "+ numberOfIterations);
+    stepKeysRoss = Object.keys(rossSteps);
+    numberOfIterationsRoss = stepKeysRoss.length-1;
+    console.log("Number of Iterations: "+ numberOfIterationsRoss);
     // for (let index = 0; index < 6; index++) {
     //     rawData[index]= Steps[index];
         
@@ -16,9 +16,9 @@ $(document).ready(function(){
     var ctxArt = document.getElementById('gridArt').getContext('2d');
     var stepNumberArt = document.getElementById('stepNumberArt');
     //Square Variables
-    wArt = 24;
-    hArt = 24;
-    sideArt = 9;
+    wArt = 220;
+    hArt = 220;
+    sideArt = 1;
     gapArt = 0;
 
     //Color Setups
@@ -30,6 +30,15 @@ $(document).ready(function(){
     for (var x = 0, j = 0; j < wArt; x+=sideArt, j++) {
         for (var y = 0, i=0; i < hArt; y+=sideArt, i++) {   
             //if(i < target[0].length && j < target[0][0]){
+                if(i >= 24 || j >= 24){
+                    ctxArt.fillStyle = zeroValue;
+                    ctxArt.beginPath();    
+                    ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
+                    ctxArt.fill();
+                    ctxArt.closePath();
+                    continue;
+                }
+
                 if(target[i][j] == 0){
                     ctxArt.fillStyle = zeroValue;
                     ctxArt.beginPath();    
@@ -58,7 +67,7 @@ $(document).ready(function(){
     initalDelay = delayMS;
     delayBeforeLoop = 5000;
     currentFrameArt = rawData[0];
-    (function mainLoop(frame) {
+    (function mainLoop(frameArt) {
         setTimeout(function() {
             
             // console.log(currentFrameArt);
@@ -67,6 +76,15 @@ $(document).ready(function(){
 
             for (var x = 0, j = 0; j < wArt; x+=sideArt, j++) {
                 for (var y = 0, i=0; i < hArt; y+=sideArt, i++) {   
+
+                    if(i >= 24 | j >= 24){
+                        ctxArt.fillStyle = zeroValue;
+                        ctxArt.beginPath();    
+                        ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
+                        ctxArt.fill();
+                        ctxArt.closePath();                        
+                        continue;
+                    }
                     // console.log(i,target[0].length);
                     //if(i < target[0].length && j < target[0][0]){
                         if(currentFrameArt[i][j] == 0 && target[i][j] == 0){
@@ -99,19 +117,19 @@ $(document).ready(function(){
                     // }                                      
                 }
             }      
-            // console.log("STEP #"+frame);    
-            stepNumberArt.innerHTML = frame+1; 
-          if (frame < numberOfIterations){ 
+            // console.log("STEP #"+frameArt);    
+            stepNumberArt.innerHTML = frameArt+1; 
+          if (frameArt < numberOfIterationsRoss){ 
             delayMS = initalDelay;
-            frame++;
-            currentFrameArt = rawData[frame];  
-            mainLoop(frame)            
+            frameArt++;
+            currentFrameArt = rawData[frameArt];  
+            mainLoop(frameArt)            
           }else{
               console.log("Looping")
               delayMS = delayBeforeLoop;
-              frame = 0;
+              frameArt = 0;
               currentFrameArt = rawData[0];
-              mainLoop(frame) 
+              mainLoop(frameArt) 
           };   
         }, delayMS)
       })(0);     
