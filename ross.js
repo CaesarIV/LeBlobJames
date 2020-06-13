@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     //Parsing
-    var rawData = Steps;
+    var rawData = rossSteps;
     stepKeysRoss = Object.keys(rossSteps);
     numberOfIterationsRoss = stepKeysRoss.length-1;
     console.log("Number of Iterations: "+ numberOfIterationsRoss);
@@ -16,9 +16,14 @@ $(document).ready(function(){
     var ctxArt = document.getElementById('gridArt').getContext('2d');
     var stepNumberArt = document.getElementById('stepNumberArt');
     //Square Variables
-    wArt = 220;
-    hArt = 220;
-    sideArt = 1;
+    // wArt = 220;
+    // hArt = 220;
+    // sideArt = 1;
+    // gapArt = 0;
+
+    wArt = 24;
+    hArt = 24;
+    sideArt = 9;
     gapArt = 0;
 
     //Color Setups
@@ -87,26 +92,14 @@ $(document).ready(function(){
                     }
                     // console.log(i,target[0].length);
                     //if(i < target[0].length && j < target[0][0]){
-                        if(currentFrameArt[i][j] == 0 && target[i][j] == 0){
-                            ctxArt.fillStyle = zeroValue;
+                        
+                            ctxArt.fillStyle = "rgb("+currentFrameArt[i][j][0]+","+currentFrameArt[i][j][1]+","+currentFrameArt[i][j][2]+")";
+                            //console.log("rgb("+currentFrameArt[i][j]+","+currentFrameArt[i][j]+","+currentFrameArt[i][j]+")");
                             ctxArt.beginPath();    
                             ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
                             ctxArt.fill();
                             ctxArt.closePath();
-                        }else if(target[i][j] == 1 && currentFrameArt[i][j] == 0){
-                            ctxArt.fillStyle = targetValue;
-                            ctxArt.beginPath();  
-                            ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
-                            ctxArt.fill();
-                            ctxArt.closePath();
-                        }                    
-                        else if(currentFrameArt[i][j] == 1){
-                            ctxArt.fillStyle = oneValue;
-                            ctxArt.beginPath();  
-                            ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
-                            ctxArt.fill();
-                            ctxArt.closePath();
-                        }  
+                        
                     //}
                     // else{
                     //     ctxArt.fillStyle = zeroValue;
