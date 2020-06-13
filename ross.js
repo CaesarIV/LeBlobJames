@@ -16,15 +16,15 @@ $(document).ready(function(){
     var ctxArt = document.getElementById('gridArt').getContext('2d');
     var stepNumberArt = document.getElementById('stepNumberArt');
     //Square Variables
-    wArt = 220;
-    hArt = 220;
-    sideArt = 1;
-    gapArt = 0;
-
-    // wArt = 24;
-    // hArt = 24;
-    // sideArt = 9;
+    // wArt = 220;
+    // hArt = 220;
+    // sideArt = 1;
     // gapArt = 0;
+
+    wArt = 24;
+    hArt = 24;
+    sideArt = 9;
+    gapArt = 0;
 
     //Color Setups
     zeroValue = "rgb(9,6,0)";
@@ -68,11 +68,11 @@ $(document).ready(function(){
     // }   
 
     //Main Loop Configuration
-    delayMS = 1000;
-    initalDelay = delayMS;
+    delayMSArt = 100;
+    initalDelay = delayMSArt;
     delayBeforeLoop = 5000;
     currentFrameArt = rawData[0];
-    (function mainLoop(frameArt) {
+    (function mainLoopArt(frameArt) {
         setTimeout(function() {
             
             // console.log(currentFrameArt);
@@ -113,18 +113,18 @@ $(document).ready(function(){
             // console.log("STEP #"+frameArt);    
             stepNumberArt.innerHTML = frameArt+1; 
           if (frameArt < numberOfIterationsRoss){ 
-            delayMS = initalDelay;
+            delayMSArt = initalDelay;
             frameArt++;
             currentFrameArt = rawData[frameArt];  
-            mainLoop(frameArt)            
+            mainLoopArt(frameArt)            
           }else{
               console.log("Looping")
-              delayMS = delayBeforeLoop;
+              delayMSArt = delayBeforeLoop;
               frameArt = 0;
               currentFrameArt = rawData[0];
-              mainLoop(frameArt) 
+              mainLoopArt(frameArt) 
           };   
-        }, delayMS)
+        }, delayMSArt)
       })(0);     
 
 
