@@ -58,6 +58,10 @@ class optmizer():
                                                 RGB_value -= (225*0.05)
                                             else:
                                                 RGB_value += (225*0.05)
+                                        if RGB_value < 0:
+                                            RGB_value = 0
+                                        if RGB_value > 225:
+                                            RGB_value = 225
                                         self.cells[row+neighbour[0]][col+neighbour[1]][i] = RGB_value 
                                         i+=1
                                     #print(self.cells[row+neighbour[0]][col+neighbour[1]])
