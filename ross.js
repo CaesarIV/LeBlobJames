@@ -16,15 +16,15 @@ $(document).ready(function(){
     var ctxArt = document.getElementById('gridArt').getContext('2d');
     var stepNumberArt = document.getElementById('stepNumberArt');
     //Square Variables
-    // wArt = 220;
-    // hArt = 220;
-    // sideArt = 1;
-    // gapArt = 0;
-
-    wArt = 24;
-    hArt = 24;
-    sideArt = 9;
+    wArt = 220;
+    hArt = 220;
+    sideArt = 1;
     gapArt = 0;
+
+    // wArt = 24;
+    // hArt = 24;
+    // sideArt = 9;
+    // gapArt = 0;
 
     //Color Setups
     zeroValue = "rgb(9,6,0)";
@@ -94,7 +94,7 @@ $(document).ready(function(){
                     //if(i < target[0].length && j < target[0][0]){
                         
                             ctxArt.fillStyle = "rgb("+currentFrameArt[i][j][0]+","+currentFrameArt[i][j][1]+","+currentFrameArt[i][j][2]+")";
-                            // console.log("rgb("+currentFrameArt[i][j][0]+","+currentFrameArt[i][j][1]+","+currentFrameArt[i][j][2]+")");
+                        //  console.log("rgb("+currentFrameArt[i][j][0]+","+currentFrameArt[i][j][1]+","+currentFrameArt[i][j][2]+")");
                             ctxArt.beginPath();    
                             ctxArt.rect (x, y, sideArt-gapArt, sideArt-gapArt);
                             ctxArt.fill();
