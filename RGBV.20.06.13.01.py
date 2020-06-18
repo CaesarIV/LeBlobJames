@@ -51,12 +51,16 @@ class optmizer():
                                    self.oldcells[row+neighbour[0]][col+neighbour[1]][1] == 0 and \
                                    self.oldcells[row+neighbour[0]][col+neighbour[1]][2] == 0:
                                     self.cells[row+neighbour[0]][col+neighbour[1]] = copy.deepcopy(self.oldcells[row][col])
+                                    i=0
                                     for RGB_value in self.cells[row+neighbour[0]][col+neighbour[1]]:
-                                        if random.uniform(0,1) <0.05:
+                                        if random.uniform(0,1) <0.20:
                                             if random.uniform(0,1) <=0.5:
                                                 RGB_value -= (225*0.05)
                                             else:
                                                 RGB_value += (225*0.05)
+                                        self.cells[row+neighbour[0]][col+neighbour[1]][i] = RGB_value 
+                                        i+=1
+                                    #print(self.cells[row+neighbour[0]][col+neighbour[1]])
                                     break
             self.oldcells = copy.deepcopy(self.cells)
             Steps[step] = copy.deepcopy(self.oldcells)
