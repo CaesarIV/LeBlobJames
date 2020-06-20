@@ -30,15 +30,15 @@ class optmizer():
         random.seed(64)
 
         #Number of steps
-        self.max_steps = 100
+        self.max_steps = 200
 
         #seeds
-        self.cells[110][110]=[0,110,0]
-        self.cells[219][219]=[0,0,110]
-        self.cells[0][0]=[110,0,0]
+        self.cells[0][0]=[0,1,0]
+        #self.cells[219][219]=[0,0,110]
+        #self.cells[0][0]=[110,0,0]
 
         #mutation chance of each RGB value
-        self.RGB_mut = 0.20
+        self.RGB_mut = 0.50
 
         #chance of decreasing the RGB value while mutating (else: increase) [tilt towards decrease]
         self.RGB_dec = 0.5
