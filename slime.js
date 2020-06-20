@@ -90,7 +90,7 @@ $(document).ready(function(){
             currentFrame = rawData[frame];  
             mainLoop(frame)            
           }else{
-              console.log("Looping")
+            //   console.log("Looping")
               delayMS = delayBeforeLoop;
               frame = 0;
               currentFrame = rawData[0];

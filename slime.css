@@ -144,8 +144,8 @@ span {
   
   .background-img{
     background-image: url("https://d2r55xnwy6nx47.cloudfront.net/uploads/2018/07/Physarum_CNRS_2880x1500.jpg");
-    height: 400px;
-    width: 800px;
+    height: 600px;
+    width: 1000px;
     background-repeat: no-repeat;
     background-size: cover;
     margin: 5% auto;
@@ -158,8 +158,8 @@ span {
 
   .background-img.rossBG{
     background-image: url("https://cdn.prod.www.spiegel.de/images/1ea1792c-0001-0004-0000-000000915608_w948_r1.77_fpx29.37_fpy45.jpg");
-    height: 400px;
-    width: 800px;
+    height: 600px;
+    width: 1000px;
     background-repeat: no-repeat;
     background-size: cover;
     margin: 5% auto;

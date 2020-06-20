@@ -118,7 +118,7 @@ $(document).ready(function(){
             currentFrameArt = rawData[frameArt];  
             mainLoopArt(frameArt)            
           }else{
-              console.log("Looping")
+            //   console.log("Looping")
               delayMSArt = delayBeforeLoop;
               frameArt = 0;
               currentFrameArt = rawData[0];
