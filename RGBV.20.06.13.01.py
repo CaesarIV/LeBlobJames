@@ -30,10 +30,10 @@ class optmizer():
         random.seed(64)
 
         #Number of steps
-        self.max_steps = 200
+        self.max_steps = 180
 
         #seeds
-        self.cells[0][0]=[0,1,0]
+        self.cells[110][110]=[0,35,102]
         #self.cells[219][219]=[0,0,110]
         #self.cells[0][0]=[110,0,0]
 
@@ -44,7 +44,7 @@ class optmizer():
         self.RGB_dec = 0.5
 
         #RGB change Percentage when mutating
-        self.RGB_change = 0.05
+        self.RGB_change = 0.01
         pass
 
         
