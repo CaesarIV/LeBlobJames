@@ -11,7 +11,7 @@ from datetime import datetime
 class optmizer():
 
     def __init__(self,):
-        self.genrations = 20
+        self.genrations = 9
         self.population_size = 300
         self.CXPB = 0.4 
         self.MUTPB = 0.2
@@ -22,7 +22,7 @@ class optmizer():
     class Grid():
         def __init__ (self,):
             self.size=(24,24)
-            self.max_steps = 20
+            self.max_steps = 35
             
             self.cells_old=[]
             self.chem_old=[]
@@ -106,6 +106,7 @@ class optmizer():
                                 Grid.chem_new[row][col][chem]+=individual[19+chem]
 
                     #Growth And Death
+                    #Growth is relative to other life .. life needs neighbours/relatives    
                     if Grid.cells_old[row][col] == 1:
                         neighbours = copy.deepcopy(Grid.neighbours)
                         random.shuffle(neighbours)
@@ -116,9 +117,10 @@ class optmizer():
                                (col+k < Grid.size[1]) and Grid.cells_old[row+j][col+k] == 0 and Grid.cells_new[row+j][col+k] == 0:
                                 if  Grow.check(Grid.chem_new[row+j][col+k]) == 1:
                                     Grid.cells_new[row+j][col+k] = 1
-                                if Die.check(Grid.chem_new[row+j][col+k]) == 1:
-                                    Grid.cells_new[row+j][col+k] = 0
                                 break
+                    #Death is absolute
+                    if Die.check(Grid.chem_new[row][col]) == 1:
+                        Grid.cells_new[row][col] = 0
                             
                     #Scoring Prep
                     if step > (Grid.max_steps-5):
