@@ -1,4 +1,4 @@
-#V.20.07.01.02
+#V.20.07.01.01
 from deap import base
 from deap import creator
 from deap import tools
@@ -89,9 +89,8 @@ class optmizer():
         
     def evaluation(self, individual):
         score = 0
-        Grow = self.logistic_function(individual[6:14])
-        Die = self.logistic_function(individual[14:22])
-        Move = self.logistic_function(individual[22:30])
+        Grow = self.logistic_function(individual[0:8])
+        Die = self.logistic_function(individual[8:16])
         Grid = self.Grid()
         Grid.cells_new = copy.deepcopy(Grid.cells_old)
         Grid.chem_new = copy.deepcopy(Grid.chem_old)
@@ -122,11 +121,11 @@ class optmizer():
                     #Chem production
                     if Grid.cells_old[row][col] == 1:
                         if self.target[row,col] == 1:
-                            Grid.chem_new[row][col][chem]+=individual[0+chem]
+                            Grid.chem_new[row][col][chem]+=individual[16+chem]
                         else:
-                            Grid.chem_new[row][col][chem]+=individual[3+chem]
+                            Grid.chem_new[row][col][chem]+=individual[19+chem]
 
-                #Movement Growth And Death
+                #Growth And Death
                 #Growth is relative to other life .. life needs neighbours/relatives    
                 if Grid.cells_old[row][col] == 1:
                     neighbours = copy.deepcopy(Grid.neighbours)
@@ -138,23 +137,10 @@ class optmizer():
                            (col+k < Grid.size[1]) and Grid.cells_old[row+j][col+k] == 0 and Grid.cells_new[row+j][col+k] == 0:
                             if  Grow.check(Grid.chem_new[row+j][col+k]) == 1:
                                 Grid.cells_new[row+j][col+k] = 1
-                                break
-                    #Movement
-                    for neighbour in neighbours:
-                        j = neighbour[0]
-                        k = neighbour[1]
-                        if (row+j >= 0) and (row+j < Grid.size[0]) and (col+k >= 0) and \
-                           (col+k < Grid.size[1]) and Grid.cells_old[row+j][col+k] == 0 and Grid.cells_new[row+j][col+k] == 0:
-                            if Move.check(Grid.chem_new[row+j][col+k]) == 1:
-                                Grid.cells_new[row+j][col+k] = 1
-                                Grid.cells_new[row][col] = 0
-                                break
-                        
+                            break
                 #Death is absolute
                 if Die.check(Grid.chem_new[row][col]) == 1:
                     Grid.cells_new[row][col] = 0
-
-
                         
                 #Scoring Prep
                 if step > (Grid.max_steps-5):
@@ -196,7 +182,7 @@ class optmizer():
         creator.create("Individual", list, fitness=creator.FitnessMax)
         toolbox = base.Toolbox()
         toolbox.register("attr_var", random.uniform, 0, 1)
-        toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_var, 31)
+        toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_var, 22)
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
         toolbox.register("evaluate", self.evaluation)
         toolbox.register("mate", tools.cxUniform, indpb=0.5)
