@@ -1,4 +1,4 @@
-#V.20.07.02.01
+#V.20.07.01.02
 from deap import base
 from deap import creator
 from deap import tools
@@ -41,19 +41,15 @@ class optmizer():
             self.chem_old=[]
             self.cells_new=[]
             self.chem_new=[]
-            self.energy_old=[]
-            self.energy_new=[]
             self.neighbours =[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]
             self.locations =[]
             for row in range(0, self.size[0]):
                 self.cells_old.append([])
-                self.chem_old.append([])
-                self.energy_old.append([]) 
+                self.chem_old.append([])                
                 for col in range(0,self.size[1]):
                     self.cells_old[row].append(0)
-                    self.energy_old[row].append(0)
-                    self.locations.append([row,col])
                     self.chem_old[row].append([])
+                    self.locations.append([row,col])
                     for chem in range(0,3):
                         self.chem_old[row][col].append(0)
             #seed
@@ -99,8 +95,7 @@ class optmizer():
         Grid = self.Grid()
         Grid.cells_new = copy.deepcopy(Grid.cells_old)
         Grid.chem_new = copy.deepcopy(Grid.chem_old)
-        Grid.energy_new = copy.deepcopy(Grid.energy_old)
-        
+
         squaredError=[]
 
         
@@ -131,24 +126,6 @@ class optmizer():
                         else:
                             Grid.chem_new[row][col][chem]+=individual[3+chem]
 
-    
-                #food diffusion
-                neighbours_num = 0
-                Grid.energy_new[row][col]=0
-                for j in range(-1,2):
-                    for k in range(-1,2):
-                        if (row+j >= 0) and (row+j < Grid.size[0]) and (col+k >= 0) and (col+k < Grid.size[1]) \
-                           and Grid.cells_old[row+j][col+k] == 1:
-                           Grid.energy_new[row][col]+=(1.0/16.0) * Grid.energy_old[row+j][col+k]
-                           neighbours_num += 1
-                Grid.energy_new[row][col] = ((16.0-neighbours_num)/16.0) * Grid.energy_old[row][col]
-                #food production and consumption
-                if Grid.cells_old[row][col] == 1:
-                    if self.target[row,col] == 1:
-                        Grid.energy_new[row][col] += 0.5
-                    else:
-                        Grid.energy_new[row][col] -= 0.5
-
                 #Movement Growth And Death
                 #Growth is relative to other life .. life needs neighbours/relatives    
                 if Grid.cells_old[row][col] == 1:
@@ -161,8 +138,6 @@ class optmizer():
                            (col+k < Grid.size[1]) and Grid.cells_old[row+j][col+k] == 0 and Grid.cells_new[row+j][col+k] == 0:
                             if  Grow.check(Grid.chem_new[row+j][col+k]) == 1:
                                 Grid.cells_new[row+j][col+k] = 1
-                                Grid.energy_new[row+j][col+k] = 0.5* Grid.energy_old[row][col]
-                                Grid.energy_new[row][col] = 0.5* Grid.energy_old[row][col]
                                 break
                     #Movement
                     for neighbour in neighbours:
@@ -172,19 +147,25 @@ class optmizer():
                            (col+k < Grid.size[1]) and Grid.cells_old[row+j][col+k] == 0 and Grid.cells_new[row+j][col+k] == 0:
                             if Move.check(Grid.chem_new[row+j][col+k]) == 1:
                                 Grid.cells_new[row+j][col+k] = 1
-                                Grid.cells_new[row+j][col+k] = Grid.energy_new[row][col]
                                 Grid.cells_new[row][col] = 0
-                                Grid.energy_new[row][col] = 0
                                 break
                         
                 #Death is absolute
                 if Die.check(Grid.chem_new[row][col]) == 1:
                     Grid.cells_new[row][col] = 0
-                    Grid.energy_new[row][col] = 0
+
+
+                        
+                #Scoring Prep
+                if step > (Grid.max_steps-5):
+                    if Grid.cells_old[row][col] == 1:
+                        if self.target[row,col] == 1:
+                            score += 1
+                        else:
+                            score -= 1
 
             Grid.chem_old = copy.deepcopy(Grid.chem_new)
             Grid.cells_old = copy.deepcopy(Grid.cells_new)
-            Grid.energy_old = copy.deepcopy(Grid.energy_new)
             if self.save:
                 Steps[step] = Grid.cells_old
                         
@@ -197,7 +178,7 @@ class optmizer():
                  f.seek(0) # rewind
                  f.write("Steps=" + old) # write the new line before
                  
-        return (np.sum(Grid.energy_old)),
+        return (score),
 
     def mutUniformFloat(self, individual, lowerBound=0.0, upperBound=1.0, indpb=0.3):
        size = len(individual)

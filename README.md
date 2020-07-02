@@ -16,9 +16,9 @@
 
 - [ ] Need to apply a **Sharpe ratio** like objective function.
 
-- [ ] Need to diffuse energy / food through the cells ie transport the food in the organism this way it has to have connection line.
+- [x] Need to diffuse energy / food through the cells ie transport the food in the organism this way it has to have connection line. STILL NO CONNECTION LINES!
 
-- [ ] Need to add the ability of cells to move around in semi random way.
+- [x] Need to add the ability of cells to move around in semi random way.
 
   
 
