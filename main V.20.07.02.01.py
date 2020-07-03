@@ -1,4 +1,4 @@
-#V.20.07.02.02
+#V.20.07.02.01
 from deap import base
 from deap import creator
 from deap import tools
@@ -12,7 +12,7 @@ from datetime import datetime
 class optmizer():
 
     def __init__(self,):
-        self.genrations = 9
+        self.genrations = 19
         self.population_size = 300
         self.CXPB = 0.4 
         self.MUTPB = 0.2
@@ -58,7 +58,7 @@ class optmizer():
                         self.chem_old[row][col].append(0)
             #seed
             self.cells_old[10][10] = 1
-            self.energy_old[10][10] = 0.5
+
 
             pass
 
@@ -92,8 +92,7 @@ class optmizer():
                 return 0
         
     def evaluation(self, individual):
-        score = []
-        neg_score=[]
+        score = 0
         Grow = self.logistic_function(individual[6:14])
         Die = self.logistic_function(individual[14:22])
         Move = self.logistic_function(individual[22:30])
@@ -185,20 +184,7 @@ class optmizer():
 
             Grid.chem_old = copy.deepcopy(Grid.chem_new)
             Grid.cells_old = copy.deepcopy(Grid.cells_new)
-
-            if np.sum(np.sum(Grid.energy_old)) != 0:
-                score.append((np.sum(Grid.energy_new)-np.sum(Grid.energy_old)) \
-                 /(np.sum(Grid.energy_old)))
-                if ((np.sum(Grid.energy_new)-np.sum(Grid.energy_old)) \
-                             /(np.sum(Grid.energy_old))) <= 0:
-                    neg_score.append((np.sum(Grid.energy_new)-np.sum(Grid.energy_old)) \
-                                 /(np.sum(Grid.energy_old)))
-            else:
-                score.append(-100.0)
             Grid.energy_old = copy.deepcopy(Grid.energy_new)
-            
-            
-
             if self.save:
                 Steps[step] = Grid.cells_old
                         
@@ -210,10 +196,8 @@ class optmizer():
                  old = f.read() # read everything in the file
                  f.seek(0) # rewind
                  f.write("Steps=" + old) # write the new line before
-        if np.std(neg_score) == 0:
-            return(-100.),
-        else:
-            return (np.mean(score)/np.std(neg_score)),
+                 
+        return (np.sum(Grid.energy_old)),
 
     def mutUniformFloat(self, individual, lowerBound=0.0, upperBound=1.0, indpb=0.3):
        size = len(individual)
