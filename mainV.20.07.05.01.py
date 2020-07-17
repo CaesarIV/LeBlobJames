@@ -1,4 +1,4 @@
-#V.20.07.02.01
+#V.20.07.05.01
 from deap import base
 from deap import creator
 from deap import tools
@@ -12,7 +12,7 @@ from datetime import datetime
 class optmizer():
 
     def __init__(self,):
-        self.genrations = 19
+        self.genrations = 99
         self.population_size = 300
         self.CXPB = 0.4 
         self.MUTPB = 0.2
@@ -58,6 +58,7 @@ class optmizer():
                         self.chem_old[row][col].append(0)
             #seed
             self.cells_old[10][10] = 1
+            self.energy_old[10][10] = 1
 
 
             pass
@@ -90,12 +91,37 @@ class optmizer():
                 return 1
             else:
                 return 0
+
+    class chemical_logistic_function():
+
+        def __init__(self, attributes):
+            self.attributes = attributes
+            self.logistic_model()
+            pass
+
+        def logistic_model(self,):
+            maximum = 10
+            minimum = -10     
+            self.B0 = (self.attributes[0] * (maximum-minimum))+minimum
+            self.B1 = (self.attributes[1] * (maximum-minimum))+minimum
+            self.B2 = (self.attributes[2] * (maximum-minimum))+minimum
+            pass
+
+        def production(self,energy):
+            x = energy
+            k = (self.B0 + (self.B1*x) + (self.B2*(x**2)))
+            p = 1/(1+(np.exp(-k)))
+            return(p)
         
     def evaluation(self, individual):
         score = 0
         Grow = self.logistic_function(individual[6:14])
         Die = self.logistic_function(individual[14:22])
         Move = self.logistic_function(individual[22:30])
+        chemicals = []
+        chemicals.append(self.chemical_logistic_function(individual[22:25]))
+        chemicals.append(self.chemical_logistic_function(individual[25:28]))
+        chemicals.append(self.chemical_logistic_function(individual[28:31]))
         Grid = self.Grid()
         Grid.cells_new = copy.deepcopy(Grid.cells_old)
         Grid.chem_new = copy.deepcopy(Grid.chem_old)
@@ -126,10 +152,7 @@ class optmizer():
                                 Grid.chem_new[row][col][chem]+=(1.0/16.0) * Grid.chem_old[row+j][col+k][chem]
                     #Chem production
                     if Grid.cells_old[row][col] == 1:
-                        if self.target[row,col] == 1:
-                            Grid.chem_new[row][col][chem]+=individual[0+chem]
-                        else:
-                            Grid.chem_new[row][col][chem]+=individual[3+chem]
+                        Grid.chem_new[row][col][chem] += chemicals[chem].production(Grid.energy_old[row][col])
 
     
                 #food diffusion
@@ -141,13 +164,17 @@ class optmizer():
                            and Grid.cells_old[row+j][col+k] == 1:
                            Grid.energy_new[row][col]+=(1.0/16.0) * Grid.energy_old[row+j][col+k]
                            neighbours_num += 1
-                Grid.energy_new[row][col] = ((16.0-neighbours_num)/16.0) * Grid.energy_old[row][col]
+                Grid.energy_new[row][col] += ((16.0-neighbours_num)/16.0) * Grid.energy_old[row][col]
                 #food production and consumption
                 if Grid.cells_old[row][col] == 1:
                     if self.target[row,col] == 1:
-                        Grid.energy_new[row][col] += 0.5
+                        Grid.energy_new[row][col] += 0.2
                     else:
-                        Grid.energy_new[row][col] -= 0.5
+                        Grid.energy_new[row][col] -= 0.2
+
+                max_energy = 1
+                if Grid.energy_new[row][col] > max_energy:
+                    Grid.energy_new[row][col] = max_energy
 
                 #Movement Growth And Death
                 #Growth is relative to other life .. life needs neighbours/relatives    
