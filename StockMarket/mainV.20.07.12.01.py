@@ -15,7 +15,7 @@ class optmizer():
 
     def __init__(self,):
 
-        self.genrations = 1
+        self.genrations = 30
         self.population_size = 300
         self.CXPB = 0.4 
         self.MUTPB = 0.2
@@ -61,7 +61,7 @@ class optmizer():
         moore_neighbourhood = copy.deepcopy(myGrid.neighbours)
 
         step = 0
-        while step <= myGrid.max_steps and np.sum(myGrid.old_cells) > 0 and np.sum(myGrid.old_energy) > 0: 
+        while step < myGrid.max_steps and np.sum(myGrid.old_cells) > 0 and np.sum(myGrid.old_energy) > 0: 
             random.shuffle(locations)
             
             for cell in locations:
